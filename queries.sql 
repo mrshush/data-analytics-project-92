@@ -1,1 +1,0 @@
-select count(*) AS customers_count from customers;
