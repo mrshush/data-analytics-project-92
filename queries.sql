@@ -40,7 +40,7 @@ SELECT seller, day_of_week, income
 FROM (
     SELECT
         CONCAT(e.first_name, ' ', e.last_name) AS seller,
-        TO_CHAR(s.sale_date, 'day') AS day_of_week,
+        RTRIM(TO_CHAR(s.sale_date, 'day')) AS day_of_week,
         EXTRACT(ISODOW FROM s.sale_date) AS number_day,
         FLOOR(SUM(s.quantity * p.price)) AS income
     FROM employees e
@@ -101,5 +101,3 @@ SELECT
 FROM sale_purchases
 WHERE sale_number = 1
 GROUP BY 1, 2, 3;
-
-
