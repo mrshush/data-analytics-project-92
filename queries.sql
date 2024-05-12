@@ -6,7 +6,7 @@ SELECT count(*) AS customers_count FROM customers;
 SELECT
     CONCAT(e.first_name, ' ', e.last_name) AS seller,
     COUNT(s.sales_id) AS operations,
-    SUM(FLOOR(p.price * s.quantity)) AS income
+    FLOOR(SUM(p.price * s.quantity)) AS income
 FROM employees e
          INNER JOIN sales s ON e.employee_id = s.sales_person_id
          INNER JOIN products p USING (product_id)
@@ -40,7 +40,7 @@ SELECT seller, day_of_week, income
 FROM (
     SELECT
         CONCAT(e.first_name, ' ', e.last_name) AS seller,
-        RTRIM(TO_CHAR(s.sale_date, 'day')) AS day_of_week,
+        TO_CHAR(s.sale_date, 'day') AS day_of_week,
         EXTRACT(ISODOW FROM s.sale_date) AS number_day,
         FLOOR(SUM(s.quantity * p.price)) AS income
     FROM employees e
